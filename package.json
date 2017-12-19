@@ -1,0 +1,30 @@
+{
+    "name": "cordova-plugin-atajo-update",
+    "version": "0.0.1",
+    "description": "Atajo Code Update Plugin",
+    "cordova": {
+        "id": "cordova-plugin-atajo-update",
+        "platforms": [
+            "android",
+            "ios"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/k1dbl4ck/cordova-plugin-atajo-update"
+    },
+    "keywords": [
+        "cordova",
+        "ecosystem:cordova",
+        "cordova-android",
+        "cordova-ios",
+        "file",
+        "download",
+        "downloader",
+        "multiple",
+        "md5",
+        "unzip"
+    ],
+    "author": "k1dbl4ck@gmail.com",
+    "license": "MIT"
+}
