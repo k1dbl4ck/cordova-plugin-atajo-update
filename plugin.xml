@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-code-update" version="0.0.1">
-	<name>Downloader</name>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-atajo-update" version="0.0.1">
+	<name>Atajo Code Update</name>
 	<author>k1dbl4ck@gmail.com</author>
 	<description>Downloads files to persistant Storage on your Phone, checks md5sum if you want, unzips packed files if necassary (For Android and iOS)</description>
 	<license>MIT</license>
-	<keywords>file,download,checksum,md5,unzip</keywords>
+	<keywords>atajo,code-update,update</keywords>
 	<repo>https://github.com/k1dbl4ck/cordova-plugin-code-update.git</repo>
 	<issue>https://github.com/k1dbl4ck/cordova-plugin-code-update/issues</issue>
-	<dependency id="cordova-plugin-file" version="^4.3.3" />
-	<dependency id="cordova-plugin-file-transfer" version="^1.6.3" />
-	<dependency id="cordova-plugin-network-information" version="^1.3.3" />
-	<dependency id="cordova-plugin-zip" version="3.1.0" />
 
-	<js-module src="www/downloader.min.js" name="downloader">
-		<clobbers target="downloader" />
+	<hook type="before_build" src="hooks/before_build.js" />
+	<hook type="before_run" src="hooks/before_build.js" />
+
+	<dependency id="cordova-plugin-advanced-http" version="^1.10.0" />
+	<dependency id="cordova-plugin-file" version="^6.0.1" />
+	<dependency id="cordova-plugin-file-transfer" version="^1.7.0" />
+	<dependency id="cordova-plugin-zip" version="^3.1.0" />
+	<dependency id="cordova-plugin-nativestorage" version="^2.2.2" />
+
+	<js-module src="www/update.js" name="atajo.update">
+		<clobbers target="atajo.update" />
 	</js-module>
 </plugin>

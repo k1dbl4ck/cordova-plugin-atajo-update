@@ -1,116 +1,57 @@
-# phonegap-downloader
-Cordova plugin to download a List of files or a single file to the Phone, check consistency and unzip if necessary (Android and ios)
+# Atajo Code Update
+Cordova plugin to remote update cordova code
 
-## install
+## Installation
 ```
-yourAppDir$ cordova plugin add https://github.com/k1dbl4ck/cordova-plugin-atajo-update.git --save --nofetch
+$ cordova plugin add https://github.com/k1dbl4ck/cordova-plugin-atajo-update.git --save
 ```
 
-## usage
+## Usage
 
-###Initialize the downloader
+A minimal interface is exposed on the `window` object : 
+
+```
+atajo.update.check(domain, restartOnUpdate, persistUpdate); 
+```
+
+- domain - Your registered Atajo domain 
+- restartOnUpdate - If an update is downloaded, the app will automatically restart with the updated code [default: false]
+- persistUpdate - Useful when debugging. Passing false will cause updates to be pulled and loaded (if restartOnUpdate is also true) - but will load the compiled (default) code on the next restart [default: true]
+
+
+## Events
+
+Various events are dispatched during an update cycle, and can be subscribed to like so : 
 
 ```javascript
-downloader.init({folder: "yourPersistantAppFolder", unzip: true});
-```
-options:
-
-- **folder**: folder to store downloads in [required]
-- **fileSystem**: fileSystem to store downloads in (use cordova.file.* to be platform independent)
-- **unzip**: *true* -> unzip after download is enabled [default: *false*]
-- **check**: *true* -> md5sum of file is checked after download [default: *false*]
-- **delete**: *true* -> delete after unpack a zipfile [default: *true*]
-- **noMedia**: *true* -> prevent gallery from scan files on android [default: *true*]
-- **wifiOnly**: *true* -> only Download when connected to Wifi, else fires ``DOWNLOADER_noWifiConnection`` event [default: *false*]
-
-###Download single file
-
-```javascript
-downloader.get("http://yourhost.com/some.zip");
-```
-
-###Download multiple files
-
-```javascript
-downloader.getMultipleFiles([
-  {url:"http://yourhost.com/some1.zip"},
-  {url:"http://yourhost.com/some2.zip"},
-  {url:"http://yourhost.com/some3.zip"}
-]);
-```
-###Abort download in progress
-You have to re-initialize downloader after aborting an transfer
-
-```javascript
-downloader.abort();
-```
-
-###Events
-```javascript
-document.addEventListener(eventName, function(event){
+document.addEventListener(eventName, (event) => {
   var data = event.data;
 });
-
-eventNames:
-DOWNLOADER_initialized        data:none
-DOWNLOADER_gotFileSystem      data:[cordova.fileSystem fileSystem]
-DOWNLOADER_gotFolder          data:[cordova.fileEntry folder]
-DOWNLOADER_error              data:[object error]
-DOWNLOADER_noWifiConnection   data:none
-DOWNLOADER_downloadSuccess    data:[cordova.fileEntry entry]
-DOWNLOADER_downloadError      data:[object error]
-DOWNLOADER_downloadProgress   data:[number percentage, string fileName]
-DOWNLOADER_unzipSuccess       data:[string fileName]
-DOWNLOADER_unzipError         data:[string fileName]
-DOWNLOADER_unzipProgress      data:[number percentage, string fileName]
-DOWNLOADER_fileRemoved        data:[cordova.fileEntry entry]
-DOWNLOADER_fileRemoveError    data:[cordova.fileEntry entry]
-DOWNLOADER_getFileError       data:[object error]	
-DOWNLOADER_fileCheckSuccess   data:[string md5sum, string fileName]
-DOWNLOADER_fileCheckFailed    data:[string calculatedMd5sum, string md5, string fileName])
-DOWNLOADER_fileCheckError     data:[object error]
 ```
+ 
+ Event Names : 
 
-##Full Examples
+ * atajo:update:initialized           data:none
+ * atajo:update:filesystem:ready      data:[cordova.fileSystem fileSystem]
+ * atajo:update:folder:ready          data:[cordova.fileEntry folder]
+ * atajo:update:error                 data:[object error]
+ * atajo:update:download:success      data:[cordova.fileEntry entry]
+ * atajo:update:download:error        data:[object error]
+ * atajo:update:download:progress     data:[number percentage]
+ * atajo:update:unzip:success         data:[string fileName]
+ * atajo:update:unzip:error           data:[string fileName]
+ * atajo:update:unzip:progress        data:[number percentage, string fileName]
+ * atajo:update:file:remove:success   data:[cordova.fileEntry entry]
+ * atajo:update:file:remove:error     data:[cordova.fileEntry entry]
+ * atajo:update:file:get:error        data:[object error]	
 
-### Download file some.txt to folder testApp
-```javascript
-downloader.init({folder: "testApp"});
-downloader.get("http://yourhost.com/some.txt");
-```
 
-### Download file some.zip to testApp, extract it and delete it afterwards
-```javascript
-downloader.init({folder: "testApp", unzip: true});
-downloader.get("http://yourhost.com/some.zip");
-```
 
-### Download file some.zip to testApp, extract it and don't delete it afterwards
-```javascript
-downloader.init({folder: "testApp", unzip: true, delete: false});
-downloader.get("http://yourhost.com/some.zip");
-```
+## Roadmap
+- Switching between or rolling back to any previous update
+- Delta syncing only files that have been updated. 
 
-### Download file some.zip to testApp, check if md5sum matches given string and extract it and delete it afterwards
-```javascript
-downloader.init({folder: "testApp", unzip: true, check: true});
-downloader.get("http://yourhost.com/some.zip", "3f4ea2219aa321ef5cd3143ea33076ab");
-```
-### Download file abort.zip and abort download, the download another.zip
-```javascript
-downloader.init({folder: "testApp", unzip: true, check: true});
-downloader.get("http://yourhost.com/abort.zip");
-downloader.abort();
-downloader.init({folder: "testApp", unzip: true, check: true});
-downloader.get("http://yourhost.com/another.zip");
-```
+## Changelog
 
-### Download multiple zip-files to testApp, check if md5sum matches given string and extract it and delete it afterwards
-```javascript
-downloader.init({folder: "testApp", unzip: true, check: true});
-downloader.getMultipleFiles([
-  {url: "http://yourhost.com/some1.zip", md5:"1f4ea2219aa321ef5cd3143ea33076ac"},
-  {url: "http://yourhost.com/some2.zip", md5:"2f4ea2219aa321ef5cd3143ea33076ad"},
-  {url: "http://yourhost.com/some3.zip", md5:"3f4ea2219aa321ef5cd3143ea33076ae"}
-]);
-```
+### Version 0.0.1
+- Initial working plugin
