@@ -40,7 +40,7 @@ var update = {
     http: null,
     //apiUrl: 'https://api.atajo.co.za',
     //updateDomain: 'atajo-code-update',
-    apiUrl: 'http://192.168.0.101:9000',
+    apiUrl: 'https://api.atajo.io',
     updateDomain: 'atajo-code-update',
 
     debug: function(message) {
@@ -148,7 +148,7 @@ var update = {
         update.debug("SAVING HASH (" + hash + ") AS LATEST");
         callback = callback || function() {}
         update.storage.setItem('atajo.code.update.hash', hash, function() {
-
+            git st
             callback();
 
         }, function(error) {
