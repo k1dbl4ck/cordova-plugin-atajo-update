@@ -38,9 +38,7 @@ var update = {
     transfer: null,
     retry: 3,
     http: null,
-    //apiUrl: 'https://api.atajo.co.za',
-    //updateDomain: 'atajo-code-update',
-    apiUrl: 'http://192.168.0.101:9000',
+    apiUrl: 'https://api.atajo.io',
     updateDomain: 'atajo-code-update',
 
     debug: function(message) {
