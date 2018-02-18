@@ -11,6 +11,9 @@ $ cordova plugin add https://github.com/k1dbl4ck/cordova-plugin-atajo-update.git
 $ cordova plugin add https://github.com/k1dbl4ck/cordova-plugin-atajo-update.git --nofetch
 ```
 
+## Configuration 
+Remember to whitelist `https://api.atajo.io` in your app
+
 ## Usage
 
 A minimal interface is exposed on the `window` object : 

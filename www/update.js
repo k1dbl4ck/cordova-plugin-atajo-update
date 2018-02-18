@@ -41,12 +41,12 @@ var update = {
     apiUrl: 'https://api.atajo.io',
     updateDomain: 'atajo-code-update',
 
-    debug: function(message) {
-        console.debug("ATAJO:UPDATE -> ", message);
+    debug: function(message, data) {
+        console.debug("ATAJO:UPDATE -> ", message, data);
     },
 
-    error: function(message) {
-        console.error("ATAJO:UPDATE -> ", message);
+    error: function(message, data) {
+        console.error("ATAJO:UPDATE -> ", message, data);
     },
 
     createEvent: function(name, data) {
@@ -63,17 +63,15 @@ var update = {
     },
 
     check: function(domain, restartOnUpdate, persistUpdate) {
-
         if (!domain) return update.error("INVALID DOMAIN. PLEASE PASS AN ATAJO DOMAIN TO CHECK UPDATES FOR");
 
         update.domain = domain;
         update.restartOnUpdate = restartOnUpdate || false;
         update.persistUpdate = persistUpdate || true;
-
         update.init();
         update.getManifest(function(manifest) {
 
-            console.debug("GOT MANIFEST : ", manifest);
+            update.debug("GOT MANIFEST : ", manifest);
 
             //GET CURRENT HASH
             update.checkHash(manifest.hash, function(updateHash) {
@@ -190,7 +188,7 @@ var update = {
     },
 
     init: function(callback) {
-
+        update.debug("INITIALIZING");
         if (update.initialized) return update.debug("ALREADY INITIALIZED");
 
 
@@ -200,7 +198,7 @@ var update = {
         update.storage = NativeStorage;
         if (!update.storage) return update.error("STORAGE PLUGIN NOT FOUND. CANNOT CONTINUE");
 
-        update.debug("INITIALIZING");
+        update.debug("INITIALIZED");
 
         if (!update.persistUpdate) { update.clearLatest(); }
 
@@ -238,9 +236,11 @@ var update = {
     getPackage: function(hash, callback) {
 
         var packageUrl = update.apiUrl + '/' + update.updateDomain + '/v1/package/' + hash + '.zip';
-        update.debug("FETCHING PACKAGE FROM " + packageUrl + " FOR DOMAIN " + update.domain);
 
         var filePath = update.localFolder.toURL() + "/" + hash + '.zip';
+
+        update.debug("FETCHING PACKAGE FROM " + packageUrl + " FOR DOMAIN " + update.domain + " TO PATH : " + filePath);
+
         update.transfer = new FileTransfer();
         update.transfer.onprogress = function(progressEvent) {
             if (progressEvent.lengthComputable) {
@@ -253,7 +253,7 @@ var update = {
                 document.dispatchEvent(update.createEvent("atajo:update:download:success", [entry]));
                 callback(entry);
             }, function(error) {
-                // console.log("transferFile, error file name: " + Downloader.fileObjectInProgress.name);
+                update.error("GET PACKAGE ERROR : ", error);
 
                 document.dispatchEvent(update.createEvent("atajo:update:download:error", [error]));
             },
@@ -287,9 +287,10 @@ var update = {
 
         window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+            update.debug("GOT FILESYSTEM : ", fileSystem);
             document.dispatchEvent(update.createEvent("atajo:update:filesystem:ready", [fileSystem.root]));
             update.fileSystem = fileSystem.root;
-            update.getFolder(fileSystem.root, update.localFolderBase + '/' + hash, callback);
+            update.getFolder(fileSystem.root, update.localFolderBase + '-' + hash, callback);
 
         }, function(error) {
             document.dispatchEvent(update.createEvent("atajo:update:error", [error]));
@@ -305,18 +306,18 @@ var update = {
                 create: true,
                 exclusive: false
             }, function(folder) {
-                //console.log("getFolder->Success:" + folder.fullPath + " : " + folder.name);
+                update.debug("GET FOLDER SUCCESS : " + folder.fullPath + " : " + folder.name);
                 document.dispatchEvent(update.createEvent("atajo:update:folder:ready", [folder]));
                 update.localFolder = folder;
                 if (update.noMedia) {
                     update.touchNoMedia();
                 }
-                //console.log("initialized " + Downloader.localFolder.toURL());
+                update.debug("GET FOLDER DONE : ", folder);
                 document.dispatchEvent(update.createEvent("atajo:update:initialized"));
                 callback();
             },
             function(error) {
-                //console.log("getFolder->Error");
+                update.debug("GET FOLDER ERROR : ", error);
                 document.dispatchEvent(update.createEvent("atajo:update:error", [error]));
             });
     },
@@ -363,7 +364,7 @@ var update = {
         onCheckSuccess: function(event) {
             //var md5 = /** @type {String} */ event.data[0];
             var fileName = event.data[1];
-            //console.log("CHECKED: " + md5 + ":" + fileName);
+            //update.debug("CHECKED: " + md5 + ":" + fileName);
             if (update.autoUnzip && update.isZipFile(fileName)) {
                 update.unzip(fileName);
             }
