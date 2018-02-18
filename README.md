@@ -3,7 +3,12 @@ Cordova plugin to remote update cordova code
 
 ## Installation
 ```
-$ cordova plugin add https://github.com/k1dbl4ck/cordova-plugin-atajo-update.git --save
+$ cordova plugin add https://github.com/k1dbl4ck/cordova-plugin-atajo-update.git
+```
+
+## Alternative Installation Option (Depending on Cordova version)
+```
+$ cordova plugin add https://github.com/k1dbl4ck/cordova-plugin-atajo-update.git --nofetch
 ```
 
 ## Usage

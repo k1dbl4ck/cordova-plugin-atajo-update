@@ -81,8 +81,11 @@ var update = {
                 if (updateHash) {
                     update.debug("HASH NOT FOUND. GETTING LATEST UPDATE");
                     update.getFilesystem(updateHash, function() {
+                        update.debug("GOT FILE SYSTEM. GETTING PACKAGE");
                         update.getPackage(updateHash, function(entry) {
+                            update.debug("GOT PACKAGE. UNZIPPING");
                             update.unzip(entry.name, function(location) {
+                                update.debug("UNZIPPED. CACHING");
                                 update.saveHash(updateHash);
                                 update.saveLocation(location);
                                 if (update.restartOnUpdate) {
