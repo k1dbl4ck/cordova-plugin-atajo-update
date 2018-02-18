@@ -25,7 +25,7 @@ module.exports = {
         //console.log("MAIN ACTIVITY PATH IS : ", mainActivityPath);
 
         mainActivityData = fs.readFileSync(mainActivityPath, 'utf8');
-        console.log("MAIN ACTIVITY DATA IS : ", mainActivityData);
+        //console.log("MAIN ACTIVITY DATA IS : ", mainActivityData);
         if (mainActivityData.indexOf('ATAJO:OVERRIDE:ACTIVITY') == -1) {
             console.log("REPLACING MAIN ACTIVITY FOR CODE UPDATE HOT LOADING");
             mainActivityData = fs.readFileSync(overrideActivityPath, 'utf8');
