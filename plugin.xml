@@ -11,7 +11,7 @@
 	<hook type="before_build" src="hooks/before_build.js" />
 	<hook type="before_run" src="hooks/before_build.js" />
 
-	<dependency id="cordova-plugin-advanced-http" version="^1.10.0" />
+	<dependency id="cordova-plugin-advanced-http" version="1.10.0" />
 	<dependency id="cordova-plugin-file" version="^6.0.1" />
 	<dependency id="cordova-plugin-file-transfer" version="^1.7.0" />
 	<dependency id="cordova-plugin-zip" version="^3.1.0" />
