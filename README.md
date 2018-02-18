@@ -1,5 +1,5 @@
 # Atajo Code Update
-Cordova plugin to remote update cordova code
+Cordova plugin to remote update cordova code (Android Only)
 
 ## Installation
 ```
@@ -57,7 +57,8 @@ document.addEventListener(eventName, (event) => {
 
 ## Roadmap
 - Switching between or rolling back to any previous update
-- Delta syncing only files that have been updated. 
+- Delta syncing only files that have been updated
+- iOS Support
 
 ## Changelog
 
