@@ -38,7 +38,7 @@ var update = {
     transfer: null,
     retry: 3,
     http: null,
-    apiUrl: 'https://api.atajo.io',
+    apiUrl: 'https://atajo-3-core-prd-1-api.atajo.io',
     updateDomain: 'atajo-code-update',
 
     debug: function(message, data) {
