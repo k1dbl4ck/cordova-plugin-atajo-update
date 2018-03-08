@@ -1,6 +1,6 @@
 {
     "name": "cordova-plugin-atajo-update",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Atajo Code Update Plugin",
     "cordova": {
         "id": "cordova-plugin-atajo-update",
