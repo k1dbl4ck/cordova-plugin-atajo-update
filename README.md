@@ -58,9 +58,15 @@ document.addEventListener(eventName, (event) => {
 ## Roadmap
 - Switching between or rolling back to any previous update
 - Delta syncing only files that have been updated
-- iOS Support
 
 ## Changelog
+
+
+### Version 0.0.3
+- Adds support for iOS
+
+### Version 0.0.2
+- Updates API url
 
 ### Version 0.0.1
 - Initial working plugin

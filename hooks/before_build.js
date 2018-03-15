@@ -6,10 +6,15 @@ module.exports = function(context) {
 
     var platforms = context.opts.cordova.platforms;
 
+    console.log("==========> PLATFORMS ARE : ", platforms); 
 
     if (platforms.indexOf("android") !== -1) {
         androidHelper.replaceMainActivity(context);
     }
+    else if (platforms.indexOf("ios") !== -1) {
+        iosHelper.replaceViewController(context);
+    }
+
 
     // Add a build phase which runs a shell script that executes the Crashlytics
     // run command line tool which uploads the debug symbols at build time.

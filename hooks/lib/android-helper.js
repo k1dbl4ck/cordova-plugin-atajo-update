@@ -9,8 +9,8 @@ module.exports = {
         const packageName = utilities.getAppName(context);
         const packageId = utilities.getAppId(context);
 
-        console.log("CODE UPDATE - PACKAGE NAME IS : " + packageName);
-        console.log("CODE UPDATE - PACKAGE ID IS : " + packageId);
+        console.log("ANDROID CODE UPDATE - PACKAGE NAME IS : " + packageName);
+        console.log("ANDROID CODE UPDATE - PACKAGE ID IS : " + packageId);
 
         let packageComponents = packageId.split('.');
         let mainActivityPath = path.join('platforms', 'android', 'src');

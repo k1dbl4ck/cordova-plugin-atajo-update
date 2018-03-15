@@ -30,7 +30,7 @@ public class MainActivity extends CordovaActivity {
             Log.d(TAG, "LAUNCING UPDATED CODE FROM : " + location);
             loadUrl(location);
         } else {
-            Log.d(TAG, "LAUNCING DEFAULT (COMPILED) CODE FROM : " + launchUrl);
+            Log.d(TAG, "LAUNCHING DEFAULT (COMPILED) CODE FROM : " + launchUrl);
             loadUrl(launchUrl);
 
         }
