@@ -209,6 +209,7 @@ var update = {
 
         var manifestUrl = update.apiUrl + '/' + update.updateDomain + '/v1/manifest';
         update.debug("FETCHING MANIFEST FROM " + manifestUrl + " FOR DOMAIN " + update.domain);
+        update.http.setRequestTimeout(180); // 3min timeout
         update.http.get(manifestUrl, {}, { 'domain': update.domain }, function(response) {
 
             try {
