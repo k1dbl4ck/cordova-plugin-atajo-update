@@ -14,10 +14,10 @@ module.exports = {
 
         let packageComponents = packageId.split('.');
         let viewControllerPath = path.join('platforms', 'ios', 'CordovaLib', 'Classes', 'Public');
-        let viewControllerFile = path.join(viewControllerPath, 'CDVCommandDelegateImpl.m');
+        let viewControllerFile = path.join(viewControllerPath, 'CDVViewController.m');
 
-        let overrideViewControllerPath = path.join(__dirname, '../', 'ios', 'CDVCommandDelegateImpl.m');
-       
+        let overrideViewControllerPath = path.join(__dirname, '../', 'ios', 'CDVViewController.m');
+
         let currentViewControllerData = fs.readFileSync(viewControllerFile, 'utf8');
         //console.log("MAIN ACTIVITY DATA IS : ", mainActivityData);
         if (currentViewControllerData.indexOf('ATAJO:OVERRIDE:CONTROLLER') == -1) {
